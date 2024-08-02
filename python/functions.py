@@ -18,15 +18,14 @@ class Screenshot:
         for x1 in range(self.xMin, self.xMax, step):
             if keyboard.is_pressed('q'):
                 return None
-            else:
-                for y1 in range(self.yMin, self.yMax, step):
+            for y1 in range(self.yMin, self.yMax, step):
 
-                    # if keyboard.is_pressed('f'):
-                    #   pyautogui.moveTo(x1, y1)
+                # if keyboard.is_pressed('f'):
+                #   pyautogui.moveTo(x1, y1)
 
-                    # we do -xMin -yMin bc the screenshot is smaller than the screen
-                    if self.screenshot.getpixel(xy=(x1-self.xMin, y1-self.yMin)) == target:
-                        return [x1-self.xMin, y1-self.yMin]
+                # we do -xMin -yMin bc the screenshot is smaller than the screen
+                if self.screenshot.getpixel(xy=(x1-self.xMin, y1-self.yMin)) == target:
+                    return [x1-self.xMin, y1-self.yMin]
         return None
 
 
@@ -55,9 +54,8 @@ class Target:
         xMax = self.x+perimeter
         yMin = self.y-perimeter
         yMax = self.y+perimeter
-        screenshot = Screenshot(xMin+screenshotRef.xMin, yMin+screenshotRef.yMin,
-                                xMax+screenshotRef.xMax, yMax+screenshotRef.yMax)
-        coordinates = screenshot.findTargetInScreenshot(step, self.color)
+        coordinates = Screenshot(xMin+screenshotRef.xMin, yMin+screenshotRef.yMin,
+                                 xMax+screenshotRef.xMax, yMax+screenshotRef.yMax).findTargetInScreenshot(step, self.color)
         if coordinates != None:
             self.x = coordinates[0]+xMin
             self.y = coordinates[1]+yMin
@@ -74,18 +72,42 @@ class Player(Target):
         self.step = step
 
     def detectPlayerColor(self, minimap: MiniMap, step=13):
-        one = 0
-        two = 0
+        out = 0
+        inn = 0
+        red =0
+        blue=0
         for x in range(minimap.xMin, minimap.xMax, step):
             for y in range(minimap.yMin, minimap.yMax, step):
                 if minimap.screenshot.getpixel(xy=(x-minimap.xMin, y-minimap.yMin)) == (199, 199, 199):
-                    one += 1
+                    out += 1
                 elif minimap.screenshot.getpixel(xy=(x-minimap.xMin, y-minimap.yMin)) == (205, 205, 205):
-                    two += 1
-        if one > two:
-            self.color = (55, 55, 55)
+                    inn += 1
+                elif minimap.screenshot.getpixel(xy=(x-minimap.xMin, y-minimap.yMin)) == (205, 201, 201):
+                    red+=1
+                elif minimap.screenshot.getpixel(xy=(x-minimap.xMin, y-minimap.yMin)) == (200, 204, 205):
+                    blue+=1
+        if out > inn:
+            if red>blue:
+                if out > red:
+                    self.color = (55, 55, 55)
+                else:
+                    self.color=(61,57,57)
+            else:
+                if out>blue:
+                    self.color = (55, 55, 55)
+                else:
+                    self.color=(56,60,61)
         else:
-            self.color = (61, 61, 61)
+            if red > blue:
+                if inn > red:
+                    self.color = (61, 61, 61)
+                else:
+                    self.color = (61, 57, 57)
+            else:
+                if inn > blue:
+                    self.color = (61, 61, 61)
+                else:
+                    self.color = (56, 60, 61)
 
     def movePlayer(self, xTo, yTo,):
         # pyautogui.moveTo(xTo+2592, yTo+1416)

@@ -22,4 +22,4 @@ movementThread.start()
 aimingThread.join()
 movementThread.join()
 
-print("Both scripts have finished executing.")
+print("All scripts have finished executing.")

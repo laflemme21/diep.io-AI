@@ -1,11 +1,10 @@
 import keyboard
 from random import randint
 from functions import Player, MiniMap
-import pyautogui
 from time import sleep
 #TODO:
 #detect player with minimap background blue and red
-#move to a destination given by bthe master script
+#move to a destination given by the master script
 
 def main():
     # x: 0->253  y: 0->253
@@ -18,7 +17,6 @@ def main():
     x = randint(
         10, xMax-xMin-10)
     y = randint(10, yMax-yMin-10)
-    pyautogui.moveTo(x,y)
     while not keyboard.is_pressed('q'):
         player.detectPlayerColor(minimap)
         player.findTarget(minimap)

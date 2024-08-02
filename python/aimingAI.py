@@ -1,5 +1,4 @@
-import pyautogui
-import keyboard
+from keyboard import is_pressed
 from functions import *
 #TODO
 #implment target purple, ennemies, ennemies bullets
@@ -7,18 +6,18 @@ from functions import *
 
 
 def main():
-    square = Target((247, 232, 126),97)
-    triangle = Target((226, 126, 123),92)
-    pentagon = Target((129, 142, 244),103)
-    allTargets = (pentagon, triangle, square)
+    #square = Target((247, 232, 126),97)
+    triangle = Target((226, 126, 123),90)
+    pentagon = Target((129, 142, 244),100)
+    allTargets = (pentagon, triangle)
     screenshot = Screenshot(415, 160, 2500, 1520)
     mouse=Mouse()
-    while not keyboard.is_pressed('q'):
+    while not is_pressed('q'):
         screenshot.renewScreenshot()
         for target in allTargets:
             target.findTarget(screenshot)
-            while not keyboard.is_pressed('q') and target.x != None:
+            while not is_pressed('q') and target.x != None:
                 mouse.moveTo((target.x,target.y),screenshot)
-                target.followTarget(screenshot,15,100)
+                target.followTarget(screenshot,30,80)
 
 main()
