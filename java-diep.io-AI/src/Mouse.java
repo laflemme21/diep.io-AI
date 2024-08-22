@@ -1,6 +1,5 @@
-package Mouse;
 
-import Screenshot.Screenshot;
+
 import java.awt.Robot;
 
 public class Mouse {

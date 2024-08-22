@@ -1,7 +1,5 @@
-package Player;
 
-import Screenshot.Screenshot;
-import Target.Target;
+
 import java.awt.Robot;
 
 public class Player extends Target {

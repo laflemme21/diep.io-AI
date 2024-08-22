@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "java-diep.io-AI\\src",
+        "java-diep.io-AI",
+        "java-diep.io-AI\\lib"
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\Users\\carlk\\Documents\\GitHub\\diep.io-AI\\java-diep.io-AI\\lib\\jnativehook-2.2.2.jar"
+    ]
+}
