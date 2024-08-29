@@ -8,7 +8,7 @@ public class Player extends Target {
     private int y;
 
     public Player(int[] p, int s){
-        super(new int[] {0,0,0},p,s);
+        super(new int[] {0,0,0},p,s,new int[] {15,15});
         x=0;
         y=0;
         try{
@@ -72,7 +72,6 @@ public class Player extends Target {
     }
 
     public void movePlayer(int xTo,int yTo){
-        // pyautogui.moveTo(xTo+2592, yTo+1416)
 
         if (x-xTo < -10){
             robot.keyRelease('a');

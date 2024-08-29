@@ -15,25 +15,22 @@ public class Target {
     }
 
     public void locate(Screenshot screenshot) {
-        position = screenshot.findColor(color);
+        this.position = screenshot.findColor(color,step);
     }
 
     public int[] getPosition() {
-        return position;
+        return this.position;
     }
 
     public int getX() {
-        return position[0];
+        return this.position[0];
     }
 
     public int getY() {
-        return position[1];
+        return this.position[1];
     }
 
     public void followTarget(){
-        System.out.println("hi1");
-        System.out.println("bye1");
-        System.out.println("---`1");
         int x=position[0]-screenshotSize[0]/2;
         int y=position[1]-screenshotSize[1]/2;
         if (x<0) {
@@ -43,13 +40,20 @@ public class Target {
             y=0;
         }      
         if(x+screenshotSize[0]>1440){
-            x=1440-screenshotSize[0];
+            x=1439-screenshotSize[0];
         }
         if(y+screenshotSize[1]>900){
-            y=900-screenshotSize[1];
+            y=899-screenshotSize[1];
         }
         screenshot=new Screenshot(x, y, screenshotSize[0], screenshotSize[1],"followTarget");
-        this.locate(screenshot);
+        int[] followPosition=screenshot.findColor(color,2);
+        if(followPosition[0]!=-1){
+            this.position=screenshot.centerOfShape(this.color,followPosition);
+        }
+        else{
+            if(screenshot.findColor(new int[] {236,239,253}, y)[0]==-1&&screenshot.findColor(new int[] {224,81,50}, y)[0]==-1){
+            this.position=followPosition;}
+        }
 
     }
 
